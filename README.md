@@ -8,7 +8,7 @@ Two versions of a simple game from the libGDX wiki tutorials.
   
 ## Running on GitHub Codespaces
 
-1. Click on 'Code', select 'Codespaces' and click '+' to create a Codespace
+1. Click on 'Code', select 'Codespaces' and click '+' to create a Codespace on master
 2. In the terminal of the recently created Codespace:
    1. Go to the project folder
    ```
