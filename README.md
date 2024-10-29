@@ -18,3 +18,8 @@ Two versions of a simple game from the libGDX wiki tutorials.
    ```
    ./gradlew html:dist
    ```
+   3. Run the HTML project
+   ```
+   cd html/build/dist
+   python -m http.server
+   ```
