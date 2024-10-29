@@ -5,8 +5,6 @@ buildscript {
   }
   dependencies {
     classpath 'org.gretty:gretty:3.1.0'
-    classpath "org.docstr:gwt-gradle-plugin:$gwtPluginVersion"
-
   }
 }
 apply plugin: "gwt"
@@ -32,9 +30,10 @@ gwt {
 }
 
 dependencies {
-  implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
-  implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
   implementation "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
+  implementation "com.github.tommyettinger:gdx-backend-gwt:1.1210.1"
+  implementation "com.github.tommyettinger:gdx-backend-gwt:1.1210.1:sources"
+  implementation "com.google.jsinterop:jsinterop-annotations:2.0.2:sources"
   implementation project(':core')
 
 }
@@ -139,7 +138,6 @@ task addSource {
 task distZip(type: Zip, dependsOn: dist){
   //// This uses the output of the dist task, which removes the superdev button from index.html .
   from(outputPath)
-  archiveVersion = projectVersion
   archiveBaseName.set("${appName}-dist")
   //// The result will be in html/build/ with a name containing "-dist".
   destinationDirectory.set(file("build"))
