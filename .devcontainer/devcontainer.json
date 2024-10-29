@@ -1,6 +1,9 @@
 // .devcontainer/devcontainer.json
-{
-  "image": "mcr.microsoft.com/devcontainers/java:17",
+{  
+  "hostRequirements": {
+    "region": "us-east" 
+  }
+  "image": "mcr.microsoft.com/devcontainers/java:0-17-bullseye",
   "settings": {
     "java.jdt.ls.java.home": "/usr/local/openjdk-17"
   }
