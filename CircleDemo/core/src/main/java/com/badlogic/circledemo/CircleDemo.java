@@ -8,56 +8,74 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Texture;
 
-public class CircleDemo extends ApplicationAdapter {
-    private OrthographicCamera camera;
-    private ShapeRenderer shapeRenderer;
-    private Viewport viewport;
-    private Circle circle;
-    private float followSpeed = 0.1f;
+public class CircleDemo extends ApplicationAdapter implements InputProcessor{
+    private Integer tamx = 1600, tamy = 837;
+    private GameController gController;
 
     @Override
     public void create() {
-        camera = new OrthographicCamera();
-        viewport = new ExtendViewport(800, 600, camera);  // Set base width and height for scaling
-        shapeRenderer = new ShapeRenderer();
-
-        // Initialize the circle at the center of the viewport
-        circle = new Circle(400, 300, 20); // Centered at (400, 300) with a radius of 20
+        this.gController = new GameController(
+            new Texture(Gdx.files.internal("img/mapaMenu.jpg")), 
+            this.tamx, 
+            this.tamy
+        );
+        Gdx.input.setInputProcessor(this);
     }
 
     @Override
     public void render() {
-        // Clear the screen
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        // Update the circle's position to follow the mouse
-        float mouseX = Gdx.input.getX();
-        float mouseY = Gdx.input.getY();
-
-        // Convert screen coordinates to world coordinates using the camera
-        mouseX = viewport.unproject(new com.badlogic.gdx.math.Vector2(mouseX, mouseY)).x;
-        mouseY = viewport.unproject(new com.badlogic.gdx.math.Vector2(mouseX, mouseY)).y;
-
-        // Smoothly move the circle towards the mouse position
-        circle.x += (mouseX - circle.x) * followSpeed;
-        circle.y += (mouseY - circle.y) * followSpeed;
-
-        // Draw the circle
-        shapeRenderer.setProjectionMatrix(camera.combined);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.circle(circle.x, circle.y, circle.radius);
-        shapeRenderer.end();
-    }
-
-    @Override
-    public void resize(int width, int height) {
-        viewport.update(width, height);  // Adjust viewport on screen resize
+        gController.move();
+        gController.render();
     }
 
     @Override
     public void dispose() {
-        shapeRenderer.dispose();
+        // Libera os recursos
+        gController.dispose();
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        gController.tecla(keycode);
+        return true;
+    }
+    @Override
+    public boolean keyUp(int keycode) {
+        gController.tecla(keycode);
+        return false;
+    }
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) { 
+        gController.click(screenX, screenY, pointer, button);
+        return true;
+    }
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+    @Override
+    public boolean scrolled(float amountX, float amountY) {
+        return false;
+    }
+
+    // Método faltante da interface InputProcessor
+    @Override
+    public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
+        return false;  // Apenas retornando false, pois você não está utilizando este evento.
     }
 }
