@@ -19,10 +19,12 @@ public class GameIO {
 
     public Integer bolinhaMenuClick(Integer px, Integer py){
         for (Bolinha b : this.bolinhas) {
-            if(px>=b.getX() && px<=(b.getX()+50) && py<=(this.telaTamy-b.getY()) && py>=(this.telaTamy-(b.getY()+50))){
+            // if(px>=b.getX() && px<=(b.getX()+50) && py<=(this.telaTamy-b.getY()) && py>=(this.telaTamy-(b.getY()+50))){
+            //     this.idLocal = b.getIdLocal();
+            //     return this.idLocal;
+            // }
                 this.idLocal = b.getIdLocal();
                 return this.idLocal;
-            }
         }
         return 0;
     }

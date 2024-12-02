@@ -58,7 +58,7 @@ public class GameController {
 
         this.gameDraw.draw(this.stage, this.avatarAtualSelec-1, this.bolinhas, this.personagens, this.avatars, this.quiz);
     }
-    public void click(int screenX, int screenY, int pointer, int button){
+    public void click(int screenX, int screenY){
         Integer idLocal;
         if(this.stage == 0){
             idLocal = gameIO.bolinhaMenuClick(screenX, screenY);
